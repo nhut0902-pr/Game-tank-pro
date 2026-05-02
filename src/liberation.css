@@ -1,0 +1,392 @@
+:root {
+  --text-main: #333;
+  --text-muted: #666;
+  --bg-color: #f7f7f7;
+  --hud-bg: #fff;
+  --border-color: #eee;
+  --palace-color: #f0f4f0;
+  --gate-color: #cfd4d9;
+  --gate-pillar: #9ea5aa;
+  --gate-gold: #c6a664;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  overflow-x: hidden;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  display: block;
+}
+
+#game-container {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+/* HUD */
+.hud {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  padding: 20px 40px;
+  position: relative;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-box .label {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.stat-box .value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #444;
+}
+
+.restart-btn {
+  position: absolute;
+  right: 30px;
+  top: 25px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.restart-btn:hover {
+  transform: rotate(90deg);
+  color: #000;
+}
+
+/* INSTRUCTION */
+.instruction {
+  text-align: center;
+  padding: 10px;
+  background: #ffecb3;
+  color: #b30000;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 1px;
+  z-index: 10;
+  animation: flashText 1.5s infinite alternate;
+}
+
+@keyframes flashText {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* CONTROL SELECTOR & POST GAME */
+.control-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #fff;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 14px;
+}
+.control-selector button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: #f0f0f0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.control-selector button.active {
+  background: #b30000;
+  color: #fff;
+  border-color: #b30000;
+}
+
+.post-game-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  background: #e8f5e9;
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+.score-form {
+  display: flex;
+  gap: 10px;
+}
+.score-form input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.score-form button, .flex-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background: #2e7d32;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+.flex-btn {
+  background: #1976d2;
+}
+.score-form button:hover, .flex-btn:hover {
+  opacity: 0.9;
+}
+
+/* SCENE */
+.scene {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  min-height: 450px;
+  background: #fdfdfd;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* CSS Art for Dinh Độc Lập (Simplified) */
+.palace-bg {
+  position: absolute;
+  bottom: 80px;
+  left: 10%;
+  width: 60%;
+  height: 250px;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+/* Gates */
+.gate-container {
+  position: absolute;
+  bottom: 60px;
+  left: 5%;
+  width: 60%;
+  height: 180px;
+  display: flex;
+  align-items: flex-end;
+  z-index: 2;
+}
+
+.gate {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.left-gate {
+  width: 40%;
+  margin-right: 2%;
+  height: 80%;
+}
+
+.right-gate {
+  width: 58%;
+}
+
+/* Gate doors animation classes */
+.gate-door {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.left-door {
+  transform-origin: bottom right;
+}
+
+.right-door {
+  transform-origin: bottom left;
+}
+
+.crashed .left-door {
+  transform: rotate(-75deg);
+  opacity: 0.5;
+  transition: all 0.8s ease-in;
+}
+
+.crashed .right-door {
+  transform: rotate(85deg);
+  opacity: 0.5;
+  transition: all 0.6s ease-in;
+}
+
+/* Tank */
+.tank {
+  position: absolute;
+  bottom: 50px;
+  right: 5%;
+  width: 30%;
+  min-width: 160px;
+  max-width: 280px;
+  z-index: 5;
+  will-change: transform;
+}
+
+.wheel {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.moving .wheel {
+  animation: roll 0.2s linear infinite;
+}
+
+@keyframes roll {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+/* FOOTER / INFO */
+.footer-info {
+  padding: 30px 40px;
+  background: white;
+}
+
+.info-row {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.history-block {
+  flex: 1;
+}
+
+.history-block h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.history-block p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.leaderboard-block {
+  flex: 1;
+}
+
+.leaderboard-block h2 {
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: #222;
+}
+
+.leaderboard-block .note {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.leaderboard-table th, .leaderboard-table td {
+  text-align: right;
+  padding: 6px 4px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.leaderboard-table th:first-child, .leaderboard-table td:first-child {
+  text-align: left;
+}
+
+.leaderboard-table th {
+  color: #888;
+  font-weight: 600;
+}
+
+.leaderboard-table td {
+  color: #555;
+}
+
+.leaderboard-table tr.highlight td {
+  color: #000;
+  font-weight: 600;
+}
+
+/* TICKER */
+.ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  background: #f8f9fa;
+  padding: 8px 0;
+  border-top: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.ticker {
+  display: inline-block;
+  white-space: nowrap;
+  animation: ticker 25s linear infinite;
+}
+
+.ticker-item {
+  display: inline-block;
+  padding: 0 2rem;
+  font-size: 12px;
+  color: #555;
+}
+
+@keyframes ticker {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+@media (max-width: 768px) {
+  .info-row {
+    flex-direction: column;
+  }
+  .hud {
+    gap: 20px;
+  }
+  .gate-container {
+    width: 80%;
+  }
+}

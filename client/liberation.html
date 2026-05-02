@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Thần Tốc - Giải Phóng Dinh Độc Lập 30/4/1975</title>
+  <link rel="stylesheet" href="/src/liberation.css">
+</head>
+<body>
+  <div id="game-container">
+    <!-- Top HUD -->
+    <header class="hud">
+      <div class="stat-box">
+        <span class="label">Cổng trái</span>
+        <span class="value" id="dist-left">0m</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Cổng phải</span>
+        <span class="value" id="dist-right">0m</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Tốc độ xe tăng</span>
+        <span class="value" id="speed">0km/h</span>
+      </div>
+      <button class="restart-btn" id="restart-btn" aria-label="Khởi động lại">↻</button>
+    </header>
+
+    <!-- Control Selection -->
+    <div class="control-selector">
+      <span>Cách lái xe:</span>
+      <button id="btn-mode-tap" class="active">Bấm Liên Tục</button>
+      <button id="btn-mode-drag">Kéo Thả Lấy Đà</button>
+    </div>
+
+    <!-- Hướng dẫn điều khiển -->
+    <div class="instruction" id="instruction">
+      <span>BẤM LIÊN TỤC VÀO MÀN HÌNH HOẶC PHÍM SPACE ĐỂ ĐẠP GA!</span>
+    </div>
+
+    <!-- Post Game Actions (Hidden during gameplay) -->
+    <div class="post-game-actions" id="post-game-actions" style="display: none;">
+      <div class="score-form">
+        <input type="text" id="player-name" placeholder="Nhập tên chiến sĩ..." maxlength="20">
+        <button id="btn-submit-score">Lưu Kỷ Lục</button>
+      </div>
+      <button id="btn-screenshot" class="flex-btn">📸 Chụp Ảnh Khoe 30/4</button>
+    </div>
+
+    <!-- Main Game Scene -->
+    <main class="scene" id="scene">
+      <!-- Background / Palace (SVG) -->
+      <div class="palace-bg">
+        <svg viewBox="0 0 800 300" width="100%" height="100%" preserveAspectRatio="xMidYMax meet">
+          <!-- Main Building Structure -->
+          <rect x="150" y="200" width="500" height="100" fill="#eef3ed" />
+          <rect x="180" y="100" width="440" height="100" fill="#eef3ed" />
+          <rect x="250" y="30" width="300" height="70" fill="#eef3ed" />
+          
+          <!-- Roofs -->
+          <polygon points="230,30 570,30 550,10 250,10" fill="#c3d1c3" />
+          <polygon points="170,100 630,100 610,90 190,90" fill="#c3d1c3" />
+          
+          <!-- Pillars/Windows Floor 1 -->
+          <g fill="#d4e0d4">
+            <rect x="200" y="110" width="20" height="90" />
+            <rect x="250" y="110" width="20" height="90" />
+            <rect x="300" y="110" width="20" height="90" />
+            <rect x="350" y="110" width="20" height="90" />
+            <rect x="400" y="110" width="20" height="90" />
+            <rect x="450" y="110" width="20" height="90" />
+            <rect x="500" y="110" width="20" height="90" />
+            <rect x="550" y="110" width="20" height="90" />
+          </g>
+          
+          <!-- Pillars/Windows Floor G -->
+          <g fill="#d4e0d4">
+            <rect x="160" y="210" width="30" height="90" />
+            <rect x="230" y="210" width="30" height="90" />
+            <rect x="300" y="210" width="30" height="90" />
+            <rect x="370" y="210" width="30" height="90" />
+            <rect x="440" y="210" width="30" height="90" />
+            <rect x="510" y="210" width="30" height="90" />
+            <rect x="580" y="210" width="30" height="90" />
+          </g>
+        </svg>
+      </div>
+      
+      <!-- Gates (SVG) -->
+      <div class="gate-container">
+        <!-- Left Gate -->
+        <div class="gate left-gate" id="left-gate">
+          <div class="gate-door left-door">
+            <svg viewBox="0 0 200 150" width="100%" height="100%" preserveAspectRatio="none">
+              <!-- Gate Frame -->
+              <rect x="0" y="0" width="20" height="150" fill="#9ea5aa" />
+              <rect x="180" y="0" width="20" height="150" fill="#9ea5aa" />
+              <!-- Bars -->
+              <path d="M40 20 V150 M60 20 V150 M80 20 V150 M100 20 V150 M120 20 V150 M140 20 V150 M160 20 V150" stroke="#cfd4d9" stroke-width="8" />
+              <!-- Top Arc -->
+              <path d="M20 30 Q 100 -10 180 30" fill="none" stroke="#cfd4d9" stroke-width="10" />
+              <!-- Gold bottom -->
+              <rect x="20" y="120" width="160" height="30" fill="#c6a664" />
+            </svg>
+          </div>
+        </div>
+        <!-- Right Gate (Main) -->
+        <div class="gate right-gate main-gate" id="main-gate">
+          <div class="gate-door right-door">
+            <svg viewBox="0 0 300 180" width="100%" height="100%" preserveAspectRatio="none">
+              <!-- Gate Frame -->
+              <rect x="0" y="0" width="25" height="180" fill="#9ea5aa" />
+              <rect x="275" y="0" width="25" height="180" fill="#9ea5aa" />
+              <!-- Bars -->
+              <path d="M40 30 V180 M60 30 V180 M80 30 V180 M100 30 V180 M120 30 V180 M140 30 V180 M160 30 V180 M180 30 V180 M200 30 V180 M220 30 V180 M240 30 V180 M260 30 V180" stroke="#cfd4d9" stroke-width="8" />
+              <!-- Center Lock Area -->
+              <rect x="135" y="70" width="30" height="50" fill="#cfd4d9" />
+              <!-- Top Arc -->
+              <path d="M25 40 Q 150 -20 275 40" fill="none" stroke="#cfd4d9" stroke-width="12" />
+              <!-- Gold bottom -->
+              <rect x="25" y="140" width="250" height="40" fill="#c6a664" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tank (SVG) -->
+      <div class="tank" id="tank">
+        <svg viewBox="0 0 400 200" width="100%" height="100%">
+          <!-- Gun -->
+          <rect x="0" y="70" width="150" height="10" fill="#1a2219" rx="5" />
+          <rect x="130" y="65" width="20" height="20" fill="#334031" rx="2" />
+          
+          <!-- Turret -->
+          <path d="M120 90 Q 120 40 180 40 L 260 40 Q 290 40 290 90 Z" fill="#334031" />
+          
+          <!-- Text and Star on Turret -->
+          <text x="170" y="75" fill="yellow" font-size="24" font-weight="bold">★</text>
+          <text x="200" y="75" fill="white" font-size="28" font-weight="bold" font-family="sans-serif">390</text>
+          
+          <!-- Hull -->
+          <path d="M100 90 L 360 90 Q 380 90 380 110 L 360 140 L 90 140 Q 70 140 70 120 Z" fill="#2a3328" />
+          
+          <!-- Tracks Background -->
+          <rect x="60" y="140" width="310" height="40" fill="#111" rx="20" />
+          
+          <!-- Wheels -->
+          <g fill="#333" stroke="#555" stroke-width="6">
+            <circle cx="90" cy="160" r="16" class="wheel" />
+            <circle cx="140" cy="160" r="16" class="wheel" />
+            <circle cx="190" cy="160" r="16" class="wheel" />
+            <circle cx="240" cy="160" r="16" class="wheel" />
+            <circle cx="290" cy="160" r="16" class="wheel" />
+            <circle cx="340" cy="160" r="16" class="wheel" />
+          </g>
+        </svg>
+      </div>
+    </main>
+
+    <!-- Bottom Information -->
+    <footer class="footer-info">
+      <div class="info-row">
+        <div class="history-block">
+          <h2>Thần tốc, táo bạo, quyết chiến và toàn thắng</h2>
+          <p>Trưa 30/4/1975, trên đại lộ Thống Nhất, đội hình xe tăng Quân đoàn 2 thần tốc tiến vào Dinh Độc Lập. Xe tăng 843 do <em>Đại đội trưởng Bùi Quang Thận</em> chỉ huy húc đổ cổng phụ, mở đường cho xe tăng 390 do <em>Trung úy Vũ Đăng Toàn</em> chỉ huy lao tới, húc tung cổng chính, tiến thẳng vào sân Dinh.</p>
+          <p><em>Bùi Quang Thận</em> nhanh chóng cắm lá cờ giải phóng trên nóc Dinh, đánh dấu thời khắc lịch sử: chế độ Sài Gòn sụp đổ, Chiến dịch Hồ Chí Minh toàn thắng! [*]</p>
+        </div>
+        
+        <div class="leaderboard-block">
+          <h2>Chiến sĩ hăng hái (Bảng Xếp Hạng)</h2>
+          <p class="note">*Dữ liệu cập nhật từ căn cứ chỉ huy (Firebase).</p>
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th>Hạng</th>
+                <th>Chiến sĩ</th>
+                <th>Tốc độ húc</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+              <tr><td colspan="3" style="text-align:center;">Đang tải dữ liệu...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+        </div>
+      </div>
+
+      <!-- Marquee Ticker -->
+      <div class="ticker-wrap">
+        <div class="ticker">
+          <span class="ticker-item">🇻🇳 Chiến sĩ <strong>Bánh Bao Xóc Tỏi</strong> quyết liệt húc cổng trái bay sang <strong>Quận 2</strong>, cổng phải đến <strong>Mỹ</strong> 🇻🇳</span>
+          <span class="ticker-item">🇻🇳 Chiến sĩ <strong>Bánh Bèo Xào Me</strong> bất ngờ tông sập cổng chính 🇻🇳</span>
+          <span class="ticker-item">🇻🇳 Chào mừng ngày Giải phóng miền Nam, thống nhất đất nước 30/4/1975 🇻🇳</span>
+          <span class="ticker-item">🇻🇳 Chiến sĩ <strong>Bánh Bao Xóc Tỏi</strong> quyết liệt húc cổng trái bay sang <strong>Quận 2</strong>, cổng phải đến <strong>Mỹ</strong> 🇻🇳</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/src/liberation.js" type="module"></script>
+</body>
+</html>
