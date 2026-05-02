@@ -7,417 +7,104 @@
   <title>UFO Tank 3D Pro</title>
   <link rel="stylesheet" href="/src/styles.css" />
   <style>
-    /* Additional styles for Pro version */
-    .shop-panel {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(103, 232, 249, 0.3);
-      border-radius: 12px;
-      padding: 24px;
-      max-width: 600px;
-      max-height: 80vh;
-      overflow-y: auto;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-    }
-
-    .shop-panel h2 {
-      color: #67e8f9;
-      margin-bottom: 16px;
-      font-size: 24px;
-    }
-
-    .shop-header {
-      background: rgba(103, 232, 249, 0.1);
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 16px;
-      color: #f8fafc;
-    }
-
-    .shop-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
-      border-bottom: 1px solid rgba(103, 232, 249, 0.2);
-    }
-
-    .shop-tab {
-      padding: 8px 16px;
-      background: transparent;
-      border: none;
-      color: #94a3b8;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: all 0.3s ease;
-    }
-
-    .shop-tab.active {
-      color: #67e8f9;
-      border-bottom-color: #67e8f9;
-    }
-
-    .shop-items {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .shop-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      background: rgba(103, 232, 249, 0.05);
-      border: 1px solid rgba(103, 232, 249, 0.2);
-      border-radius: 8px;
-    }
-
-    .item-icon {
-      font-size: 32px;
-      min-width: 40px;
-      text-align: center;
-    }
-
-    .item-info {
-      flex: 1;
-    }
-
-    .item-info h3 {
-      color: #f8fafc;
-      margin: 0 0 4px 0;
-      font-size: 14px;
-    }
-
-    .item-info p {
-      color: #94a3b8;
-      margin: 0 0 4px 0;
-      font-size: 12px;
-    }
-
-    .item-price {
-      color: #facc15;
-      font-weight: bold;
-      font-size: 12px;
-    }
-
-    .item-buy-btn {
-      padding: 8px 16px;
-      background: #67e8f9;
-      color: #0f172a;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
-
-    .item-buy-btn:hover {
-      background: #a7f3d0;
-      transform: scale(1.05);
-    }
-
-    .owned-items {
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(103, 232, 249, 0.2);
-    }
-
-    .owned-items h3 {
-      color: #67e8f9;
-      margin-bottom: 12px;
-      font-size: 14px;
-    }
-
-    .owned-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .owned-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 12px;
-      background: rgba(103, 232, 249, 0.1);
-      border-radius: 6px;
-      color: #f8fafc;
-      font-size: 13px;
-    }
-
-    .equip-btn {
-      padding: 4px 12px;
-      background: #facc15;
-      color: #0f172a;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 11px;
-      font-weight: bold;
-    }
-
-    .close-shop-btn {
-      width: 100%;
-      padding: 12px;
-      background: #ef4444;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 16px;
-    }
-
-    .lobby-panel {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(103, 232, 249, 0.3);
-      border-radius: 12px;
-      padding: 24px;
-      max-width: 500px;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-    }
-
-    .lobby-panel h2 {
-      color: #67e8f9;
-      margin-bottom: 20px;
-      font-size: 24px;
-    }
-
-    .lobby-section {
-      margin-bottom: 16px;
-    }
-
-    .lobby-section label {
-      display: block;
-      color: #f8fafc;
-      margin-bottom: 8px;
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    .lobby-section input[type="range"] {
-      width: 100%;
-      cursor: pointer;
-    }
-
-    .lobby-section select {
-      width: 100%;
-      padding: 8px;
-      background: rgba(103, 232, 249, 0.1);
-      border: 1px solid rgba(103, 232, 249, 0.3);
-      color: #f8fafc;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .difficulty-buttons,
-    .team-buttons {
-      display: flex;
-      gap: 8px;
-    }
-
-    .difficulty-btn,
-    .team-btn {
-      flex: 1;
-      padding: 8px;
-      background: rgba(103, 232, 249, 0.1);
-      border: 1px solid rgba(103, 232, 249, 0.3);
-      color: #f8fafc;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .difficulty-btn.active,
-    .team-btn.active {
-      background: #67e8f9;
-      color: #0f172a;
-      border-color: #67e8f9;
-    }
-
-    .start-game-btn {
-      width: 100%;
-      padding: 12px;
-      background: #10b981;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 16px;
-      margin-top: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .start-game-btn:hover {
-      background: #059669;
-      transform: scale(1.02);
-    }
-
-    .currency-display {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(103, 232, 249, 0.3);
-      padding: 12px 16px;
-      border-radius: 8px;
-      color: #facc15;
-      font-weight: bold;
-      z-index: 100;
-    }
-
-    .shop-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 12px 20px;
-      background: #67e8f9;
-      color: #0f172a;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      z-index: 100;
-    }
-
-    #shopPanel {
-      display: none;
-    }
-
-    #shopPanel.active {
-      display: block;
-    }
+    body { margin: 0; padding: 0; overflow: hidden; }
+    canvas { display: block; width: 100%; height: 100%; }
+    .hud { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+    .hud > * { pointer-events: auto; }
+    
+    .topbar { position: fixed; top: 20px; left: 20px; right: 20px; display: flex; gap: 20px; z-index: 100; }
+    .stat-block { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(103, 232, 249, 0.3); padding: 12px 16px; border-radius: 8px; color: #f8fafc; font-weight: bold; }
+    .stat-block span { display: block; font-size: 12px; color: #94a3b8; margin-bottom: 4px; }
+    .stat-block strong { display: block; font-size: 16px; }
+    .health-track { width: 100px; height: 8px; background: rgba(0,0,0,0.5); border-radius: 4px; margin: 4px 0; overflow: hidden; }
+    .health-fill { height: 100%; background: #10b981; width: 100%; }
+    .icon-button { background: rgba(103, 232, 249, 0.1); border: 1px solid rgba(103, 232, 249, 0.3); color: #67e8f9; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    
+    .mode-badge { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(103, 232, 249, 0.3); padding: 20px; border-radius: 12px; text-align: center; color: #f8fafc; z-index: 100; }
+    .mode-badge strong { display: block; font-size: 20px; color: #67e8f9; margin-bottom: 8px; }
+    .mode-badge span { display: block; font-size: 14px; color: #94a3b8; }
+    
+    .crosshair { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; pointer-events: none; z-index: 50; }
+    .crosshair span { position: absolute; background: rgba(103, 232, 249, 0.6); }
+    .crosshair span:nth-child(1) { width: 2px; height: 10px; left: 50%; top: 0; transform: translateX(-50%); }
+    .crosshair span:nth-child(2) { width: 10px; height: 2px; left: 0; top: 50%; transform: translateY(-50%); }
+    
+    .touch-layer { position: fixed; bottom: 20px; left: 20px; right: 20px; display: flex; justify-content: space-between; align-items: flex-end; z-index: 100; }
+    .joystick { width: 120px; height: 120px; background: rgba(103, 232, 249, 0.1); border: 2px solid rgba(103, 232, 249, 0.3); border-radius: 50%; position: relative; }
+    .joystick-stick { width: 40px; height: 40px; background: rgba(103, 232, 249, 0.5); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .fire-button { width: 100px; height: 100px; background: rgba(239, 68, 68, 0.8); border: 2px solid rgba(239, 68, 68, 1); border-radius: 50%; color: white; font-size: 24px; cursor: pointer; font-weight: bold; }
+    
+    .mode-panel { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(103, 232, 249, 0.3); padding: 24px; border-radius: 12px; max-width: 500px; z-index: 1000; }
+    .mode-panel-header h1 { color: #67e8f9; margin: 0 0 8px 0; font-size: 24px; }
+    .mode-panel-header p { color: #94a3b8; margin: 0; font-size: 14px; }
+    .mode-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+    .mode-card { background: rgba(103, 232, 249, 0.1); border: 1px solid rgba(103, 232, 249, 0.3); color: #f8fafc; padding: 16px; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+    .mode-card:hover { background: rgba(103, 232, 249, 0.2); }
+    .mode-card.active { background: #67e8f9; color: #0f172a; border-color: #67e8f9; }
+    .mode-card span { display: block; font-size: 12px; margin-bottom: 8px; }
+    .mode-card strong { display: block; font-size: 16px; }
+    
+    .status-panel { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(103, 232, 249, 0.3); padding: 24px; border-radius: 12px; text-align: center; z-index: 1000; }
+    .status-panel h1 { color: #67e8f9; margin: 0 0 8px 0; font-size: 32px; }
+    .status-panel p { color: #f8fafc; margin: 0 0 16px 0; }
+    .status-actions { display: flex; gap: 12px; }
+    .primary-button, .secondary-button { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    .primary-button { background: #10b981; color: white; }
+    .secondary-button { background: rgba(103, 232, 249, 0.1); border: 1px solid rgba(103, 232, 249, 0.3); color: #67e8f9; }
+    
+    .hidden { display: none !important; }
+    
+    .currency-display { position: fixed; top: 20px; right: 20px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(103, 232, 249, 0.3); padding: 12px 16px; border-radius: 8px; color: #facc15; font-weight: bold; z-index: 100; }
+    .shop-button { position: fixed; bottom: 20px; right: 20px; padding: 12px 20px; background: #67e8f9; color: #0f172a; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; z-index: 100; }
+    
+    #shopPanel { display: none; }
+    #shopPanel.active { display: block; }
   </style>
 </head>
 <body>
-  <canvas id="game" aria-label="UFO Tank 3D Pro game"></canvas>
-
+  <canvas id="game"></canvas>
   <main class="hud" aria-live="polite">
     <section class="topbar">
       <div class="stat-block health-block">
         <span>HP</span>
-        <div class="health-track" aria-hidden="true">
-          <div id="healthFill" class="health-fill"></div>
-        </div>
+        <div class="health-track"><div id="healthFill" class="health-fill"></div></div>
         <strong id="healthText">100</strong>
       </div>
-      <div class="stat-block">
-        <span>SCORE</span>
-        <strong id="scoreText">0</strong>
-      </div>
-      <div class="stat-block">
-        <span>WAVE</span>
-        <strong id="waveText">1</strong>
-      </div>
-      <button id="pauseButton" class="icon-button" type="button" aria-label="Pause">II</button>
+      <div class="stat-block"><span>SCORE</span><strong id="scoreText">0</strong></div>
+      <div class="stat-block"><span>WAVE</span><strong id="waveText">1</strong></div>
+      <button id="pauseButton" class="icon-button" type="button">II</button>
     </section>
-
-    <div class="mode-badge">
-      <strong id="modeNameText">CHỌN MODE</strong>
-      <span id="modeHelpText">AUTO-FIRE</span>
-    </div>
-
-    <div class="crosshair" aria-hidden="true">
-      <span></span>
-      <span></span>
-    </div>
-
-    <section class="touch-layer" aria-hidden="true">
-      <div id="joystick" class="joystick">
-        <div id="joystickStick" class="joystick-stick"></div>
-      </div>
-      <button id="fireButton" class="fire-button" type="button" aria-label="Fire">◎</button>
+    <div class="mode-badge"><strong id="modeNameText">CHỌN MODE</strong><span id="modeHelpText">AUTO-FIRE</span></div>
+    <div class="crosshair"><span></span><span></span></div>
+    <section class="touch-layer">
+      <div id="joystick" class="joystick"><div id="joystickStick" class="joystick-stick"></div></div>
+      <button id="fireButton" class="fire-button" type="button">◎</button>
     </section>
-
     <section id="modePanel" class="mode-panel">
-      <div class="mode-panel-header">
-        <h1>CHỌN CHẾ ĐỘ</h1>
-        <p>Ngắm vào UFO để xe tăng tự bắn.</p>
-      </div>
+      <div class="mode-panel-header"><h1>CHỌN CHẾ ĐỘ</h1><p>Ngắm vào UFO để xe tăng tự bắn.</p></div>
       <div class="mode-grid">
-        <button class="mode-card" type="button" data-mode="training">
-          <span>TẬP LUYỆN</span>
-          <strong>Êm</strong>
-        </button>
-        <button class="mode-card active" type="button" data-mode="survival">
-          <span>SINH TỒN</span>
-          <strong>Chuẩn</strong>
-        </button>
-        <button class="mode-card" type="button" data-mode="assault">
-          <span>ĐỘT KÍCH</span>
-          <strong>Căng</strong>
-        </button>
+        <button class="mode-card" type="button" data-mode="training"><span>TẬP LUYỆN</span><strong>Êm</strong></button>
+        <button class="mode-card active" type="button" data-mode="survival"><span>SINH TỒN</span><strong>Chuẩn</strong></button>
+        <button class="mode-card" type="button" data-mode="assault"><span>ĐỘT KÍCH</span><strong>Căng</strong></button>
       </div>
     </section>
-
-    <section id="statusPanel" class="status-panel hidden">
-      <h1 id="statusTitle">PAUSED</h1>
-      <p id="statusLine">SCORE 0</p>
-      <div class="status-actions">
-        <button id="restartButton" class="primary-button" type="button">RETRY</button>
-        <button id="chooseModeButton" class="secondary-button" type="button">MODE</button>
-      </div>
-    </section>
-
-    <!-- Lobby Container -->
+    <section id="statusPanel" class="status-panel hidden"><h1 id="statusTitle">PAUSED</h1><p id="statusLine">SCORE 0</p><div class="status-actions"><button id="restartButton" class="primary-button">RETRY</button><button id="chooseModeButton" class="secondary-button">MODE</button></div></section>
     <div id="lobbyContainer"></div>
-
-    <!-- Shop Container -->
     <div id="shopPanel"></div>
   </main>
-
-  <!-- Currency Display -->
   <div class="currency-display" id="currencyDisplay">₳ 1000</div>
-
-  <!-- Shop Button -->
   <button class="shop-button" id="shopButton">SHOP</button>
 
   <script type="module">
     import { initializeExtensions, updateExtensions, createLobby, openShop } from '/src/extensions/integration.js';
     import { currencyManager } from '/src/extensions/currency.js';
-
-    // Khởi tạo lobby
-    createLobby('lobbyContainer');
-
-    // Update currency display
-    function updateCurrencyDisplay() {
-      const display = document.getElementById('currencyDisplay');
-      display.textContent = `₳ ${currencyManager.getBalance()}`;
-    }
-
-    // Listen for currency changes
-    window.addEventListener('currencyChanged', updateCurrencyDisplay);
-
-    // Shop button
-    document.getElementById('shopButton').addEventListener('click', () => {
-      const shopPanel = document.getElementById('shopPanel');
-      shopPanel.classList.toggle('active');
-      if (shopPanel.classList.contains('active')) {
-        openShop();
-      }
+    
+    // Initialize game and extensions
+    window.addEventListener('DOMContentLoaded', () => {
+      console.log('Game Pro loaded');
+      createLobby('lobbyContainer');
     });
-
-    // Listen for game start
-    window.addEventListener('lobbyStartGame', (e) => {
-      console.log('Game config:', e.detail);
-      // Hide lobby, show game
-      document.getElementById('lobbyContainer').style.display = 'none';
-    });
-
-    // Initial display update
-    updateCurrencyDisplay();
   </script>
-
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
