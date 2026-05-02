@@ -96,8 +96,8 @@
   <button class="shop-button" id="shopButton">SHOP</button>
 
   <script type="module">
-    import { initializeExtensions, updateExtensions, createLobby, openShop } from '/src/extensions/integration.js';
-    import { currencyManager } from '/src/extensions/currency.js';
+    import { initializeExtensions, updateExtensions, createLobby, openShop } from './src/extensions/integration.js';
+    import { currencyManager } from './src/extensions/currency.js';
     
     // Initialize game and extensions
     window.addEventListener('DOMContentLoaded', () => {
@@ -105,6 +105,6 @@
       createLobby('lobbyContainer');
     });
   </script>
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>
